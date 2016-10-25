@@ -31,7 +31,7 @@ SHOOT = 5;
 CLIMB = 6;
 
 
-num_trials = 1000;
+num_trials =
 
 
 persistent safe pits Wumpus board have_gold have_arrow plan
@@ -75,7 +75,10 @@ else
     breezes(CS4300_conversion(agent.y), x) = 1;
 end
 
-[pits, Wumpus] = CS4300_WP_estimates(breezes, stench, num_trials);   
+[pits, Wumpus] = CS4300_WP_estimates(breezes, stench, num_trials);
+
+if percept(3)==1
+    
 
 if percept(3)==1
     plan = [GRAB];
