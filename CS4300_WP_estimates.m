@@ -45,9 +45,10 @@ Wumpus = zeros(4, 4);
 
 trials = 0; % total trials
 
-for i = 1:num_trials
+%for i = 1:num_trials
+while(valid < num_trials)
     %Generate board   
-    board = CS4300_gen_board(0.2)
+    board = CS4300_gen_board(0.2);
     
     %Check if board matches stench and wumpus requirements
     if(CS4300_check_board(breezes, stench, board) == 1)

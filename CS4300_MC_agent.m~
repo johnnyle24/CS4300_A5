@@ -35,7 +35,7 @@ num_trials = 1000;
 
 
 persistent safe pits Wumpus board have_gold have_arrow plan
-persistent agent frontier visited t breezes stenches
+persistent agent frontier visited t
 
 if isempty(agent)
     t = 0;
@@ -48,20 +48,14 @@ if isempty(agent)
     board = -ones(4,4);
     visited = zeros(4,4);
     frontier = zeros(4,4);
-    breezes = -ones(4,4);
-    stenches = -ones(4,4);
     safe(4,1) = 1;
     pits(4,1) = 0;
     Wumpus(4,1) = 0;
     board(4,1) = 0;
     visited(4,1) = 1;
-    frontier(3,1) = 1;
-    frontier(4,2)  = 1;
     have_gold = 0;
     have_arrow = 1;
 end
-
-
 
 if have_gold==1&~isempty(plan)
     action = plan(1);
@@ -70,19 +64,18 @@ if have_gold==1&~isempty(plan)
 end
 
 if percept(1)==1
-    stenches(CS4300_conversion(agent.y), agent.x) = 1;
+    stench(CS4300_conversion(agent.y), x) = 1;
 else
-    stenches(CS4300_conversion(agent.y), agent.x) = 0;
+    stench(CS4300_conversion(agent.y), x) = 1;
 end
 
 if percept(2)==1
-    breezes(CS4300_conversion(agent.y), agent.x) = 1;
+    breezes(CS4300_conversion(agent.y), x) = 1;
 else
-    breezes(CS4300_conversion(agent.y), agent.x) = 0;
+    breezes(CS4300_conversion(agent.y), x) = 1;
 end
 
-[pits, Wumpus] = CS4300_WP_estimates(breezes, stenches, num_trials);   
-
+[pits, Wumpus] = CS4300_WP_estimates(breezes, stench, num_trials);   
 
 if percept(3)==1
     plan = [GRAB];
@@ -95,10 +88,6 @@ if percept(3)==1
 end
 
 if isempty(plan)
-    %determine safest cell
-    [min_pits,index_pits] = min(pits); 
-    [min_wumpus,index_wumpus] = min(Wumpus); 
-    
     
     [cand_rows,cand_cols] = find(frontier==1&safe==1&visited==0);
     if ~isempty(cand_rows)
@@ -113,7 +102,7 @@ end
 
 % No Wumpus shot yet
 if have_arrow==1&isempty(plan)
-    plan = CS4300_Plan_Shot(agent,Wumpus,visited,safe,board);
+    plan = CS4300_plan_shot(agent,Wumpus,visited,safe,board);
 end
 
 % Take a risk

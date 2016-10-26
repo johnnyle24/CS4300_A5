@@ -9,19 +9,24 @@ function agent = CS4300_agent_update(agent,action)
 
 switch action
     case 1
-        switch agent.dir 
-            case 0
-                if(agent.x <= 4)
-                    agent.x = agent.x + 1;
-            case 1
-                if(agent.y <= 4)
-                    agent.y = agent.y + 1;
-            case 2
-                if(agent.x >= 1)
-                    agent.x = agent.x - 1;
-            case 3
-                if(agent.x >= 1)
-                    agent.y = agent.y - 1;
+            switch agent.dir
+                case 0 
+                    if(agent.x <= 4)
+                        agent.x = agent.x + 1;
+                    end
+                case 1
+                    if(agent.y <= 4)
+                        agent.y = agent.y + 1;
+                    end
+                case 2
+                    if(agent.x >= 1)
+                        agent.x = agent.x - 1;
+                    end
+                case 3
+                    if(agent.x >= 1)
+                        agent.y = agent.y - 1;
+                    end
+            end
     case 2
         switch agent.dir
             case 0
@@ -32,6 +37,7 @@ switch action
                 agent.dir = 1;
             case 3
                 agent.dir = 2;
+        end
     case 3
         switch agent.dir
             case 0
@@ -42,3 +48,5 @@ switch action
                 agent.dir = 3;
             case 3
                 agent.dir = 0;
+        end
+end

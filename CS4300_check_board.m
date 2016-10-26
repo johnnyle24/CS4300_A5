@@ -78,6 +78,13 @@ valid = 0;
                     valid = 0;
                     return;
                 end
+               
+                
+            end
+            
+            %Do checking for no pits in neighboring square
+            if(breezes(i, j) == 0)
+                
                 
             end
             
@@ -124,6 +131,11 @@ valid = 0;
                     valid = 0;
                     return;
                 end
+                
+            end
+            
+            %check for no pits in neighboring squares
+            if(stench(i1, j1) == 0)
                 
             end
             
