@@ -72,15 +72,16 @@ goal_state(3) = direction;
 
 j = 1;
 if(goal_state(1) == initial_state(1) && goal_state(2) == initial_state(2))
-    plantemp(j).p = -1;
+    plantemp(j) = -1;
     while(direction ~= initial_state(3))
-       plantemp(j).p = 2;
+       plantemp(j) = 2;
        j = j + 1;
        initial_state(3) = initial_state(3) - 1;
        if(initial_state(3) < 0)
           initial_state(3) = 3; 
        end
     end
+    plantemp(end+1) = 5;
     return;
 end
 
@@ -88,10 +89,13 @@ end
 
 j = 1;
 
-for i = 2:size(sol, 1)
-   plantemp(j).p = sol(i,4); 
-   j = j + 1;
-end
+% for i = 2:size(sol, 1)
+%    plantemp(j).p = sol(i,4); 
+%    j = j + 1;
+% end
+
+plantemp = [sol(2:end,4)];
+plantemp(end+1) = 5;
 
 
 end

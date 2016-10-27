@@ -59,9 +59,10 @@ if isempty(agent)
     frontier(4,2)  = 1;
     have_gold = 0;
     have_arrow = 1;
+    [pits, Wumpus] = CS4300_WP_estimates(breezes, stenches, num_trials);
 end
 
-
+visited(4-agent.y+1,agent.x) = 1;
 
 if have_gold==1&&~isempty(plan)
     action = plan(1);
@@ -81,17 +82,38 @@ else
     breezes(CS4300_conversion(agent.y), agent.x) = 0;
 end
 
-[pits, Wumpus] = CS4300_WP_estimates(breezes, stenches, num_trials);   
+if percept(1)==0 && percept(2)==0
+    safe = CS4300_safety(agent.x, agent.y, safe, 1);
+    board = CS4300_safety(agent.x, agent.y, board, 0);
+end
+
+if(frontier(CS4300_conversion(agent.y), agent.x) == 1)
+    frontier(CS4300_conversion(agent.y), agent.x) = 0;
+    
+    frontier = CS4300_frontier(agent.x, agent.y, visited, frontier);
+    
+    board(CS4300_conversion(agent.y), agent.x) = 0;
+    safe(CS4300_conversion(agent.y), agent.x) = 1;
+    [pits, Wumpus] = CS4300_WP_estimates(breezes, stenches, num_trials);
+end
 
 
 if percept(3)==1
     plan = [GRAB];
     have_gold = 1;
-    [so,no] = CS4300_Wumpus_A_star(abs(board),...
+    [so,no] = CS4300_Wumpus_A_star_safe(abs(board),...
         [agent.x,agent.y,agent.dir],...
-        [1,1,0],'CS4300_A_star_Man');
+        [1,1,0],'CS4300_A_star_Man', abs(board));
     plan = [plan;so(2:end,4)];
     plan = [plan;CLIMB];
+end
+
+if percept(5)==1
+    stenches = zeros(4, 4);
+    
+    [pits, Wumpus] = CS4300_WP_estimates(breezes, stenches, num_trials);
+    
+    
 end
 
 if isempty(plan)
@@ -99,9 +121,9 @@ if isempty(plan)
     if ~isempty(cand_rows)
         cand_x = cand_cols;
         cand_y = 4 - cand_rows + 1;
-        [so,no] = CS4300_Wumpus_A_star(abs(board),...
+        [so,no] = CS4300_Wumpus_A_star_safe(abs(board),...
             [agent.x,agent.y,agent.dir],...
-            [cand_x(1),cand_y(1),0],'CS4300_A_star_Man');
+            [cand_x(1),cand_y(1),0],'CS4300_A_star_Man', abs(board));
         plan = [so(2:end,4)];
     end
 end
@@ -179,9 +201,9 @@ if isempty(plan)
 
     temp_board = board;
     temp_board(finaly,finalx) = 0;
-    [so,no] = CS4300_Wumpus_A_star(abs(temp_board),...
+    [so,no] = CS4300_Wumpus_A_star_safe(abs(temp_board),...
         [agent.x,agent.y,agent.dir],...
-        [finalx,4 - finaly + 1,0],'CS4300_A_star_Man');
+        [finalx,4 - finaly + 1,0],'CS4300_A_star_Man', abs(temp_board));
     plan = [so(2:end,4)];
 end
 
@@ -192,7 +214,7 @@ plan = plan(2:end);
 agent = CS4300_agent_update(agent,action);
 
 
-visited(4-agent.y+1,agent.x) = 1;
+%visited(4-agent.y+1,agent.x) = 1;
 
 if action==SHOOT
     have_arrow = 0;

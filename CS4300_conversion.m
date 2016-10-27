@@ -15,3 +15,7 @@ end
 if(y_value == 4)
     value = 1;
 end
+
+if(y_value == -1)
+    value = -1;
+end
