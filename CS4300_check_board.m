@@ -45,36 +45,36 @@ valid = 0;
             
             if(breezes(i, j) == 1)
                 
-                foundBreeze = 0;
+                foundPits = 0;
                 
                 % Check all neighbors to see if a pit is there
                 %check right
                 if(j+1 <= 4)
                     if(board(i, j+1) == 1)
-                        foundBreeze = 1;
+                        foundPits = 1;
                     end
                 end
                 %check above
                 if(i+1 <= 4)
                     if(board(i+1, j) == 1)
-                        foundBreeze = 1;
+                        foundPits = 1;
                     end
                 end
                 %check below
                 if(i-1 > 0)
                     if(board(i-1, j) == 1)
-                        foundBreeze = 1;
+                        foundPits = 1;
                     end
                 end
                 %check left
                 if(j-1 > 0)
                     if(board(i, j-1) == 1)
-                        foundBreeze = 1;
+                        foundPits = 1;
                     end
                 end
                 
                 
-                if(foundBreeze == 0)
+                if(foundPits == 0)
                     valid = 0;
                     return;
                 end
@@ -84,64 +84,169 @@ valid = 0;
             
             %Do checking for no pits in neighboring square
             if(breezes(i, j) == 0)
-                
-                
-            end
-            
-            
-            
-       
-        end 
-    end
-    
-    for i1 = 1:4
-        for j1 = 1:4
-            if(stench(i1, j1) == 1)
-                
-                foundStench = 0;
-                
-                % Check all neighbors to see if a wumpus is there
-                %check right
-                if(j1+1 <= 4)
-                    if(board(i1, j1+1) == 3)
-                        foundStench = 1;
+                if(j+1 <= 4)
+                    if(board(i, j+1) == 1)
+                        valid = 0;
+                        return;
                     end
                 end
                 %check above
-                if(i1+1 <= 4)
-                    if(board(i1+1, j1) == 3)
-                        foundStench = 1;
+                if(i+1 <= 4)
+                    if(board(i+1, j) == 1)
+                        valid = 0;
+                        return;
                     end
                 end
                 %check below
-                if(i1-1 > 0)
-                    if(board(i1-1, j1) == 3)
-                        foundStench = 1;
+                if(i-1 > 0)
+                    if(board(i-1, j) == 1)
+                        valid = 0;
+                        return;
                     end
                 end
                 %check left
-                if(j1-1 > 0)
-                    if(board(i1, j1-1) == 3)
-                        foundStench = 1;
+                if(j-1 > 0)
+                    if(board(i, j-1) == 1)
+                        valid = 0;
+                        return;
+                    end
+                end
+                
+            end
+            
+            if(stench(i, j) == 1)
+                
+                foundWumpus = 0;
+                
+                % Check all neighbors to see if a wumpus is there
+                %check right
+                if(j+1 <= 4)
+                    if(board(i, j+1) == 3 || board(i, j+1) == 4)
+                        foundWumpus = 1;
+                    end
+                end
+                %check above
+                if(i+1 <= 4)
+                    if(board(i+1, j) == 3 || board(i+1, j) == 4)
+                        foundWumpus = 1;
+                    end
+                end
+                %check below
+                if(i-1 > 0)
+                    if(board(i-1, j) == 3 || board(i-1, j) == 4)
+                        foundWumpus = 1;
+                    end
+                end
+                %check left
+                if(j-1 > 0)
+                    if(board(i, j-1) == 3 || board(i, j-1) == 4)
+                        foundWumpus = 1;
                     end
                 end
                 
                 
-                if(foundStench == 0)
+                if(foundWumpus == 0)
                     valid = 0;
                     return;
                 end
                 
             end
             
-            %check for no pits in neighboring squares
-            if(stench(i1, j1) == 0)
-                
+            
+            if(stench(i, j) == 0)
+                % Check all neighbors to see if a wumpus is there
+                %check right
+                if(j+1 <= 4)
+                    if(board(i, j+1) == 3 || board(i, j+1) == 4)
+                       valid = 0;
+                       return;
+                    end
+                end
+                %check above
+                if(i+1 <= 4)
+                    if(board(i+1, j) == 3 || board(i+1, j) == 4)
+                       valid = 0;
+                       return;
+                    end
+                end
+                %check below
+                if(i-1 > 0)
+                    if(board(i-1, j) == 3 || board(i-1, j) == 4)
+                       valid = 0;
+                       return;
+                    end
+                end
+                %check left
+                if(j-1 > 0)
+                    if(board(i, j-1) == 3 || board(i, j-1) == 4)
+                       valid = 0;
+                       return;
+                    end
+                end 
             end
             
-        end
-        
+            if(breezes(i, j) == 1 || breezes(i, j) == 0 || stench(i, j) == 1 || stench(i, j) == 0)
+                if(board(i, j) == 1 || board(i, j) == 3 || board(i, j) == 4)
+                    valid = 0;
+                    return;
+                end
+            end
+            
+       
+        end 
     end
+    
+%     for i1 = 1:4
+%         for j1 = 1:4
+%             
+%             if(stench(i1, j1) == 1)
+%                 
+%                 foundStench = 0;
+%                 
+%                 % Check all neighbors to see if a wumpus is there
+%                 %check right
+%                 if(j1+1 <= 4)
+%                     if(board(i1, j1+1) == 3)
+%                         foundStench = 1;
+%                     end
+%                 end
+%                 %check above
+%                 if(i1+1 <= 4)
+%                     if(board(i1+1, j1) == 3)
+%                         foundStench = 1;
+%                     end
+%                 end
+%                 %check below
+%                 if(i1-1 > 0)
+%                     if(board(i1-1, j1) == 3)
+%                         foundStench = 1;
+%                     end
+%                 end
+%                 %check left
+%                 if(j1-1 > 0)
+%                     if(board(i1, j1-1) == 3)
+%                         foundStench = 1;
+%                     end
+%                 end
+%                 
+%                 
+%                 if(foundStench == 0)
+%                     valid = 0;
+%                     return;
+%                 end
+%                 
+%             end
+%             
+%             %check for no pits in neighboring squares
+%             if(stench(i1, j1) == 0)
+%                 
+%             end
+%             
+%         end
+%         
+%     end
+    
+    
     
     valid = 1;
     

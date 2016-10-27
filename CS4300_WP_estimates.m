@@ -45,8 +45,13 @@ Wumpus = zeros(4, 4);
 
 trials = 0; % total trials
 
+counter = 0;
+
 %for i = 1:num_trials
 while(valid < num_trials)
+    
+    counter = counter + 1;
+    
     %Generate board   
     board = CS4300_gen_board(0.2);
     
@@ -58,7 +63,7 @@ while(valid < num_trials)
                    pits(x,y) = pits(x, y) + 1; 
                 end
                 
-                if(board(x, y) == 3)
+                if(board(x, y) == 3 || board(x, y) == 4)
                    Wumpus(x, y) = Wumpus(x, y) + 1; 
                 end
             end
@@ -81,16 +86,16 @@ while(valid < num_trials)
     
 end
 
-    for x1 = 1:4
-        for y1 = 1:4
-            
-            pits(x1, y1) = pits(x1, y1) / valid;
-            
-            Wumpus(x1, y1) = Wumpus(x1, y1) / valid;
-            
-        end
-        
+for x1 = 1:4
+    for y1 = 1:4
+
+        pits(x1, y1) = pits(x1, y1) / valid;
+
+        Wumpus(x1, y1) = Wumpus(x1, y1) / valid;
+
     end
+
+end
 
 end
     

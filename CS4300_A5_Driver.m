@@ -41,6 +41,8 @@ scores = zeros(3,1);
 
 [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',board1);
 
+disp('hello');
+
 
 
 

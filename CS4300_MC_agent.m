@@ -113,7 +113,16 @@ end
 
 % No Wumpus shot yet
 if have_arrow==1&isempty(plan)
-    plan = CS4300_Plan_Shot(agent,Wumpus,visited,safe,board);
+%     plan = CS4300_Plan_Shot(agent,Wumpus,visited,safe,board);
+
+    [x, y] = max(Wumpus);
+    
+%     x = mod(wumpusIndices(1), 4);
+%     y = floor(wumpusIndices(1) / 4) + 1;
+    
+    
+
+    plan = CS4300_Plan_Shot([agent.x, agent.y, agent.dir],[x, y, 0],safe);
 end
 
 % Take a risk

@@ -27,7 +27,9 @@ targety = current(2);
 for i = 1:length(safe)
    for j = 1:length(safe)
        if(i == target(1) || j == target(2))
-          if(safe(i, j) == 1 || safe(i, j) == -1)
+           
+          if(safe(i, j) == 1)
+%           if(safe(i, j) == 1 || safe(i, j) == -1)
               new_dist = abs(i-current(1)) + abs(j-current(2));
               if(new_dist <= distance)
                  distance = new_dist;
