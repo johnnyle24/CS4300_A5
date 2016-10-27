@@ -63,7 +63,7 @@ end
 
 
 
-if have_gold==1&&~isempty(plan)
+if have_gold==1&~isempty(plan)
     action = plan(1);
     plan = plan(2:end);
     return
@@ -106,10 +106,8 @@ if isempty(plan)
     end
 end
 
-stench_check = find(stenches==1);
-
 % No Wumpus shot yet
-if have_arrow==1&&isempty(plan)&&size(stench_check)~=0
+if have_arrow==1&isempty(plan)
 %     plan = CS4300_Plan_Shot(agent,Wumpus,visited,safe,board);
 
     [x, y] = max(Wumpus);
@@ -157,7 +155,7 @@ if isempty(plan)
     temp_board(finaly,finalx) = 0;
     [so,no] = CS4300_Wumpus_A_star(abs(temp_board),...
         [agent.x,agent.y,agent.dir],...
-        [finalx,4 - finaly + 1,0],'CS4300_A_star_Man');
+        [finaly,finalx,0],'CS4300_A_star_Man');
     plan = [so(2:end,4)];
 end
 
