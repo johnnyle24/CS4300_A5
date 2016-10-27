@@ -109,17 +109,41 @@ end
 stench_check = find(stenches==1);
 
 % No Wumpus shot yet
-if have_arrow==1&&isempty(plan)&&size(stench_check)~=0
+if (have_arrow==1 && isempty(plan) && ~isempty(stench_check))
 %     plan = CS4300_Plan_Shot(agent,Wumpus,visited,safe,board);
 
-    [x, y] = max(Wumpus);
     
 %     x = mod(wumpusIndices(1), 4);
 %     y = floor(wumpusIndices(1) / 4) + 1;
+
+    [cand_rows,cand_cols] = find(frontier==1);
+    
+    max = 0;
+    
+    finalx = cand_cols(1);
+    
+    finaly = cand_rows(1);
+    
+    max = Wumpus(finaly, finalx);
+    
+    for i = 1:size(cand_rows, 1)
+        r = cand_rows(i);
+        c = cand_cols(i);
+        
+        temp_wumpus = Wumpus(r,c);
+        
+        if(temp_wumpus > max)
+           max = temp_wumpus;
+           
+           finalx = c;
+           finaly = r;
+        end
+
+    end
     
     
 
-    %plan = CS4300_Plan_Shot([agent.x, agent.y, agent.dir],[x, y, 0],safe);
+    plan = CS4300_Plan_Shot([agent.x, agent.y, agent.dir],[finalx, finaly, 0],safe);
 end
 
 % Take a risk
@@ -136,7 +160,7 @@ if isempty(plan)
     
     for i = 1:size(cand_rows, 1)
         r = cand_rows(i);
-        c = cand_col(i);
+        c = cand_cols(i);
         
         prob_average = (Wumpus(r,c)+pits(r,c)) / 2;
         
@@ -166,6 +190,8 @@ plan = plan(2:end);
 
 % Update agent's idea of state
 agent = CS4300_agent_update(agent,action);
+
+
 visited(4-agent.y+1,agent.x) = 1;
 
 if action==SHOOT
