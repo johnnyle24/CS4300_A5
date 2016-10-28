@@ -164,8 +164,9 @@ if (have_arrow==1 && isempty(plan) && ~isempty(stench_check))
     end
     
     
+    
 
-    plan = CS4300_Plan_Shot([agent.x, agent.y, agent.dir],[finalx, finaly, 0],safe);
+    plan = CS4300_Plan_Shot([agent.x, agent.y, agent.dir],[finalx,4 - finaly + 1, 0],safe);
 end
 
 % Take a risk

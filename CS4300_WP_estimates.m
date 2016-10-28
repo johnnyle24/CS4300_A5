@@ -75,6 +75,10 @@ while(valid < num_trials)
         valid = valid + 1;
     end
     
+    if(counter > num_trials * 10)
+        break;
+    end
+    
 end
 
 for x1 = 1:4

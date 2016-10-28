@@ -49,36 +49,14 @@ board4 = [0,0,0,3;...
 
 scores = zeros(3,1);
 
+%[score,trace] = CS4300_WW1(max_steps,'CS4300_Hybrid_Wumpus_Agent',board2);
 %}
 
-board2 = ...
-     [0  ,   1  ,   0  ,   1;...
-     1  ,   0 ,    0   ,  0;...
-     0  ,   3 ,    1   ,  0;...
-     0   ,  0   ,  2   ,  0;];
-[score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',board2);
+results = zeros(250,3);
 
-
-results = zeros(250,2);
-
-% for i = 1:100
-%     i
-%     if(i == 6)
-%         disp('break');
-%     end
-%     b = boards(i).board
-%     clear('CS4300_WW1');
-%     clear('CS4300_MC_agent');
-%     [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',b);
-%     results(i,1) = score;
-%     if(score < 0)
-%         results(i,2) = 0;
-%         disp('FAIL')
-%     else
-%         results(i,2) = 1;
-%         disp('SUCCESS')
-%     end
-% end
+for i = 1:250
+    [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',boards(i));
+end
 
 
 disp('hello');

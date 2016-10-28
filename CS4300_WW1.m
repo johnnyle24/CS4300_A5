@@ -63,13 +63,13 @@ while step<max_steps&done==0
         case 3
             score = score - 1;
         case 4 
-            score = score;
+            score = score - 1;
             shot_count = 1;
         case 5
-            score = score - 10;
+            score = score - 50;
             
         case 6
-            score = score + 1000;
+            score = score -1;
             agent.gold = 1;
     end
     
@@ -87,6 +87,7 @@ while step<max_steps&done==0
         if(agent.alive == 0)
             score = score - 1000;
         end
+        score = score + 1000;
         done = 1;
     end
 end
