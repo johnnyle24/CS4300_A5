@@ -1,4 +1,4 @@
-function [board, loc_gold] = CS4300_generate_board(p)
+function board = CS4300_generate_board(p,slain)
 % CS4300_gen_board - generate a Wumpus board
 % On input:
 %     p (float): probability of pit in room
@@ -46,5 +46,8 @@ else
     loc_gold = zeros(1,3);
     loc_gold(1) = rows(loc_g);
     loc_gold(2) = cols(loc_g);
-    board(rows(loc_w),cols(loc_w)) = WUMPUS;
+    if(~slain)
+        board(rows(loc_w),cols(loc_w)) = WUMPUS;
+    end
 end
+

@@ -31,7 +31,7 @@ SHOOT = 5;
 CLIMB = 6;
 
 
-num_trials = 1000;
+num_trials = 10000;
 
 
 persistent safe pits Wumpus board have_gold have_arrow plan

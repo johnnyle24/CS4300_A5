@@ -155,21 +155,21 @@ valid = 0;
             
             if(stench(i, j) == 0)
                 % Check all neighbors to see if a wumpus is there
-                %check right
+                % check right
                 if(j+1 <= 4)
                     if(board(i, j+1) == 3 || board(i, j+1) == 4)
                        valid = 0;
                        return;
                     end
                 end
-                %check above
+                % check above
                 if(i+1 <= 4)
                     if(board(i+1, j) == 3 || board(i+1, j) == 4)
                        valid = 0;
                        return;
                     end
                 end
-                %check below
+                % check below
                 if(i-1 > 0)
                     if(board(i-1, j) == 3 || board(i-1, j) == 4)
                        valid = 0;
@@ -185,7 +185,7 @@ valid = 0;
                 end 
             end
             
-            if(breezes(i, j) == 1 || breezes(i, j) == 0 || stench(i, j) == 1 || stench(i, j) == 0)
+            if(breezes(i, j) == 1 || breezes(i, j) == 0)
                 if(board(i, j) == 1 || board(i, j) == 3 || board(i, j) == 4)
                     valid = 0;
                     return;
