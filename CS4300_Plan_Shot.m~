@@ -29,12 +29,11 @@ for i = 1:4
        if(4-i+1 == target(2) || j == target(1))
           if(safe(i, j) == 1)
 %           if(safe(i, j) == 1 || safe(i, j) == -1)
-              new_dist = abs(i-current(1)) + abs(j-current(2));
-              safe(i, j) = 100;
+              new_dist = abs(j-current(1)) + abs(4-i+1-current(2));
               if(new_dist <= distance)
                  distance = new_dist;
-                 targetx = i;
-                 targety = j;
+                 targetx = j;
+                 targety = 4-i+1;
               end
           end
        end
@@ -70,22 +69,44 @@ goal_state(3) = direction;
 % SHOOT = 5;
 % CLIMB = 6;
 
-j = 1;
+[sol,nod] = CS4300_Wumpus_A_star_safe(safe,initial_state,goal_state,'CS4300_A_star_Man',safe);
+
+plantemp = [sol(2:end,4)];
+
+j = size(sol, 1);
 if(goal_state(1) == initial_state(1) || goal_state(2) == initial_state(2))
-    plantemp(j) = -1;
+    
+    if(initial_state(3) < direction)    
+        difference_left = abs(initial_state(3) - direction);
+        different_right = abs(initial_state(3) - direction+4);
+    else
+        difference_left = abs(initial_state(3) - direction+4);
+        different_right = abs(initial_state(3) - direction);
+    end
+    
+    if(difference_left < different_right)
+        turn = 3; 
+    else
+        turn = 2;
+    end
+    
     while(direction ~= initial_state(3))
-       plantemp(j) = 2;
+       plantemp(j) = turn;
        j = j + 1;
+       
+       
        initial_state(3) = initial_state(3) - 1;
        if(initial_state(3) < 0)
-          initial_state(3) = 3; 
+          initial_state(3) = 3;
+       elseif(initial_state(3) > 3)
+           inital_state(3) = 0;
        end
-    end
-    plantemp(end+1) = 5;
+    end 
+    plantemp(j) = 5;
     return;
 end
 
-[sol,nod] = CS4300_Wumpus_A_star_safe(safe,initial_state,goal_state,'CS4300_A_star_Man',safe);
+
 
 j = 1;
 
@@ -94,7 +115,7 @@ j = 1;
 %    j = j + 1;
 % end
 
-plantemp = [sol(2:end,4)];
+
 plantemp(end+1) = 5;
 
 

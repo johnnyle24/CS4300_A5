@@ -1,4 +1,4 @@
-function action = CS4300_MC_agent(percept)
+function action = CS4300_MC_agent(percept,num_trials)
 % CS4300_MC_agent - Monte Carlo agent with a few informal rules
 % On input:
 %     percept (1x5 Boolean vector): percept from Wumpus world
@@ -29,10 +29,6 @@ LEFT = 3;
 GRAB = 4;
 SHOOT = 5;
 CLIMB = 6;
-
-
-num_trials = 10000;
-
 
 persistent safe pits Wumpus board have_gold have_arrow plan
 persistent agent frontier visited t breezes stenches

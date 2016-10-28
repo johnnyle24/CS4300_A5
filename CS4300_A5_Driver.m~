@@ -49,14 +49,102 @@ board4 = [0,0,0,3;...
 
 scores = zeros(3,1);
 
-%[score,trace] = CS4300_WW1(max_steps,'CS4300_Hybrid_Wumpus_Agent',board2);
 %}
 
-results = zeros(250,3);
+
+samples = 0;
+results = zeros(250,2);
 
 for i = 1:250
-    [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',boards(i));
+    i
+    b = boards(i).board
+    clear('CS4300_WW1');
+    clear('CS4300_MC_agent');
+    [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',b,samples);
+    results(i,1) = score;
+    if(score < 0)
+        results(i,2) = 0;
+        disp('FAIL')
+    else
+        results(i,2) = 1;
+        disp('SUCCESS')
+    end
 end
+
+samples = 50;
+results1 = zeros(250,2);
+
+for i = 1:250
+    i
+    b = boards(i).board
+    clear('CS4300_WW1');
+    clear('CS4300_MC_agent');
+    [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',b,samples);
+    results1(i,1) = score;
+    if(score < 0)
+        results1(i,2) = 0;
+        disp('FAIL')
+    else
+        results1(i,2) = 1;
+        disp('SUCCESS')
+    end
+end
+
+samples = 100;
+results2 = zeros(250,2);
+
+for i = 1:250
+    i
+    b = boards(i).board
+    clear('CS4300_WW1');
+    clear('CS4300_MC_agent');
+    [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',b,samples);
+    results2(i,1) = score;
+    if(score < 0)
+        results2(i,2) = 0;
+        disp('FAIL')
+    else
+        results2(i,2) = 1;
+        disp('SUCCESS')
+    end
+end
+
+samples = 250;
+results3 = zeros(250,2);
+
+for i = 1:250
+    i
+    b = boards(i).board
+    clear('CS4300_WW1');
+    clear('CS4300_MC_agent');
+    [score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',b,samples);
+    results3(i,1) = score;
+    if(score < 0)
+        results3(i,2) = 0;
+        disp('FAIL')
+    else
+        results3(i,2) = 1;
+        disp('SUCCESS')
+    end
+end
+
+%{
+Use 50, 100 and 200 MC samples, and determine a mean score for each on each of
+the given set of test boards numbered 1:250 (see class data/A5 subdir) in terms of a
+mean, variance and confidence interval. Compare these to the same agent without
+MC estimates to determine what impact MC has on scores. Report your results in a
+manner similar to that shown in Table 1.
+%}
+
+mean_0 = mean(results(:2));
+mean_50 = mean(results1(:2));
+mean_100 = mean(results2(:2));
+mean_250 = mean(results3(:2));
+
+var_0 = mean(results(:2));
+var_50 = mean(results1(:2));
+var_100 = mean(results2(:2));
+var_250 = mean(results3(:2));
 
 
 disp('hello');
