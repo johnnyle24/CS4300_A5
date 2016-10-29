@@ -124,15 +124,19 @@ end
 
 
 
-mean_0 = mean(results(:,2));
-mean_50 = mean(results1(:,2));
-mean_100 = mean(results2(:,2));
-mean_250 = mean(results3(:,2));
+mean_0 = mean(results(:,1));
+sum_0 = sum(results(:,2));
+mean_50 = mean(results1(:,1));
+sum_50 = sum(results1(:, 2));
+mean_100 = mean(results2(:,1));
+sum_100 = sum(results2(:,2));
+mean_250 = mean(results3(:,1));
+sum_250 = sum(results3(:,2));
 
-var_0 = var(results(:,2));
-var_50 = var(results1(:,2));
-var_100 = var(results2(:,2));
-var_250 = var(results3(:,2));
+var_0 = var(results(:,1));
+var_50 = var(results1(:,1));
+var_100 = var(results2(:,1));
+var_250 = var(results3(:,1));
 
 CI_Results_0_1 = mean_0 - 1.96*sqrt(var_0/250);
 CI_Results_0_2 = mean_0 + 1.96*sqrt(var_0/250);
