@@ -51,6 +51,10 @@ scores = zeros(3,1);
 
 %}
 
+board3 = [0,0,0,3;2,0,0,0;0,1,1,0;0,0,0,0];
+[score,trace] = CS4300_WW1(max_steps,'CS4300_MC_agent',board3,500);
+
+%{
 
 samples = 0;
 results = zeros(250,2);
@@ -149,7 +153,7 @@ CI_Results_100_2 = mean_100 + 1.96*sqrt(var_100/250);
 
 CI_Results_250_1 = mean_250 - 1.96*sqrt(var_250/250);
 CI_Results_250_2 = mean_250 + 1.96*sqrt(var_250/250);
-
+%}
 
 
 disp('hello');
